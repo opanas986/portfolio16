@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AETHER X1 — Electric. Without compromise.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#080808;
+    --white:#F2F2F2;
+    --grey:#8A8A8A;
+    --accent:#C7FF00;
+    --line: rgba(242,242,242,0.12);
+    --serif-disp: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:var(--body);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:#080808;}
+
+  /* film grain */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:999;
+    opacity:.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:28px 48px;
+    mix-blend-mode:difference;
+  }
+  .logo{
+    font-family:var(--serif-disp); font-weight:700; letter-spacing:0.15em;
+    font-size:15px; text-transform:uppercase;
+  }
+  .navlinks{display:flex; gap:36px; font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--white);}
+  .navlinks span{cursor:default; opacity:.75;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; height:100vh; min-height:640px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; overflow:hidden;
+  }
+  .hero-carwrap{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    z-index:1;
+  }
+  #heroCar{
+    width:min(1400px, 150vw);
+    transform-origin:center center;
+    will-change:transform;
+    filter:drop-shadow(0 40px 80px rgba(0,0,0,.7));
+  }
+  .hero-vignette{
+    position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:
+      radial-gradient(ellipse at center, rgba(8,8,8,0) 35%, rgba(8,8,8,.55) 78%, rgba(8,8,8,1) 100%);
+  }
+  .hero-content{
+    position:relative; z-index:3;
+  }
+  .hero-eyebrow{
+    font-size:12px; letter-spacing:.35em; text-transform:uppercase; color:var(--accent);
+    margin-bottom:22px;
+  }
+  .hero-title{
+    font-family:var(--serif-disp); font-weight:700;
+    font-size:clamp(56px, 11vw, 148px);
+    line-height:.92; letter-spacing:-0.02em;
+  }
+  .hero-tag{
+    margin-top:18px;
+    font-size:clamp(15px,2vw,20px); color:var(--grey); font-weight:400; letter-spacing:.01em;
+  }
+  .hero-specs{
+    position:absolute; bottom:44px; left:0; right:0; z-index:3;
+    display:flex; justify-content:center; gap:0;
+    padding:0 24px;
+  }
+  .spec{
+    padding:0 40px; text-align:center; border-left:1px solid var(--line);
+  }
+  .spec:first-child{border-left:none;}
+  .spec-value{
+    font-family:var(--serif-disp); font-weight:600; font-size:clamp(20px,2.6vw,30px);
+    font-variant-numeric:tabular-nums;
+  }
+  .spec-label{
+    font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--grey); margin-top:6px;
+  }
+  .scroll-hint{
+    position:absolute; bottom:150px; left:50%; transform:translateX(-50%); z-index:3;
+    font-size:10px; letter-spacing:.25em; text-transform:uppercase; color:var(--grey);
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+  }
+  .scroll-hint::after{
+    content:''; width:1px; height:34px; background:linear-gradient(var(--grey), transparent);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+  /* ---------- SECTION SHARED ---------- */
+  section{position:relative; padding:160px 48px;}
+  .section-head{max-width:640px; margin:0 auto 80px;}
+  .section-eyebrow{
+    font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--accent); margin-bottom:16px;
+  }
+  .section-title{
+    font-family:var(--serif-disp); font-weight:600; font-size:clamp(32px,4.5vw,52px); letter-spacing:-0.01em;
+  }
+
+  /* ---------- CONFIGURATOR ---------- */
+  .configurator{
+    background:#0c0c0c;
+    border-top:1px solid var(--line);
+    padding-top:120px;
+  }
+  .config-grid{
+    max-width:1320px; margin:0 auto;
+    display:grid; grid-template-columns:1.3fr 1fr; gap:80px; align-items:center;
+  }
+  .config-preview{
+    position:relative; display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(ellipse at 50% 60%, rgba(255,255,255,0.05), transparent 70%);
+    border-radius:4px; padding:40px 0;
+  }
+  .config-preview svg{width:100%; max-width:640px; filter:drop-shadow(0 30px 50px rgba(0,0,0,.6));}
+  .config-panel{display:flex; flex-direction:column; gap:44px;}
+  .config-row-label{
+    font-size:11px; letter-spacing:.25em; text-transform:uppercase; color:var(--grey); margin-bottom:18px;
+    display:flex; justify-content:space-between;
+  }
+  .config-row-label b{color:var(--white); font-weight:500; letter-spacing:.02em;}
+
+  .swatches{display:flex; gap:18px; flex-wrap:wrap;}
+  .swatch{
+    display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer;
+    background:none; border:none; font-family:var(--body); color:var(--grey);
+  }
+  .swatch-dot{
+    width:38px; height:38px; border-radius:50%; border:2px solid transparent;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .swatch:hover .swatch-dot{transform:scale(1.08);}
+  .swatch[aria-pressed="true"] .swatch-dot{border-color:var(--accent); box-shadow:0 0 0 3px rgba(199,255,0,.15);}
+  .swatch span{font-size:11px; letter-spacing:.05em; text-transform:uppercase;}
+  .swatch[aria-pressed="true"] span{color:var(--white);}
+
+  .pill-group{display:flex; gap:10px; flex-wrap:wrap;}
+  .pill{
+    padding:12px 22px; border:1px solid var(--line); background:transparent; color:var(--grey);
+    font-family:var(--body); font-size:13px; letter-spacing:.03em; cursor:pointer; border-radius:2px;
+    transition:all .2s ease;
+  }
+  .pill:hover{border-color:rgba(242,242,242,.35); color:var(--white);}
+  .pill[aria-pressed="true"]{border-color:var(--accent); color:var(--accent); background:rgba(199,255,0,.06);}
+
+  .config-footer{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    padding-top:34px; border-top:1px solid var(--line);
+  }
+  .price-label{font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--grey); margin-bottom:8px;}
+  .price-value{font-family:var(--serif-disp); font-weight:700; font-size:34px; font-variant-numeric:tabular-nums;}
+  .cta{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--accent); color:#080808; border:none;
+    padding:16px 30px; font-family:var(--body); font-weight:600; font-size:13px;
+    letter-spacing:.05em; text-transform:uppercase; cursor:pointer; border-radius:2px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .cta:hover{transform:translateY(-2px); box-shadow:0 12px 30px rgba(199,255,0,.25);}
+  .cta:focus-visible, .pill:focus-visible, .swatch:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+
+  footer{
+    padding:60px 48px; text-align:center; color:var(--grey); font-size:12px;
+    letter-spacing:.08em; border-top:1px solid var(--line);
+  }
+
+  @media (max-width:900px){
+    nav{padding:22px 24px;}
+    .navlinks{display:none;}
+    .hero-specs{gap:0; flex-wrap:wrap;}
+    .spec{padding:0 18px;}
+    .config-grid{grid-template-columns:1fr; gap:56px;}
+    section{padding:100px 24px;}
+    .config-footer{flex-direction:column; align-items:flex-start; gap:24px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    #heroCar{transition:none !important;}
+    .scroll-hint::after{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav>
+  <div class="logo">AETHER</div>
+  <div class="navlinks">
+    <span>X1</span><span>Design</span><span>Performance</span><span>Configure</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0;">
+  <div class="hero-carwrap">
+    <svg id="heroCar" viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg">
+      <g id="heroCarBody">
+        <path class="car-body" d="M40,260 C40,235 60,215 90,210 L150,205 C170,170 210,120 280,95 C330,78 390,70 450,72 C520,75 580,90 630,115 C660,130 680,150 700,170 L760,180 C800,185 830,205 840,235 L845,255 L790,258 C788,225 762,200 730,200 C696,200 668,228 668,262 L668,265 L280,265 L280,262 C280,228 252,200 218,200 C184,200 156,228 156,262 L156,265 L40,262 Z" fill="#101010" stroke="rgba(242,242,242,0.08)" stroke-width="1"/>
+        <path class="car-glass" d="M300,150 C330,110 390,88 450,90 C510,92 560,105 600,130 L580,165 C520,145 440,140 380,148 C350,152 320,158 300,165 Z" fill="#050505" opacity="0.9"/>
+        <path d="M760,180 C800,185 826,202 838,228" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.8"/>
+        <circle class="wheel" cx="218" cy="262" r="52" fill="#050505" stroke="rgba(242,242,242,0.15)" stroke-width="2"/>
+        <circle cx="218" cy="262" r="22" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.7"/>
+        <circle class="wheel" cx="668" cy="262" r="52" fill="#050505" stroke="rgba(242,242,242,0.15)" stroke-width="2"/>
+        <circle cx="668" cy="262" r="22" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.7"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Aether X1 — Electric Sports Coupe</div>
+    <h1 class="hero-title">AETHER X1</h1>
+    <p class="hero-tag">Electric. Without compromise.</p>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+  <div class="hero-specs">
+    <div class="spec"><div class="spec-value">2.9s</div><div class="spec-label">0–100 km/h</div></div>
+    <div class="spec"><div class="spec-value">612 km</div><div class="spec-label">Range</div></div>
+    <div class="spec"><div class="spec-value">680 HP</div><div class="spec-label">Power</div></div>
+  </div>
+</section>
+
+<!-- CONFIGURATOR -->
+<section class="configurator">
+  <div class="section-head" style="text-align:center; margin-left:auto; margin-right:auto;">
+    <div class="section-eyebrow">Configure</div>
+    <h2 class="section-title">Choose your AETHER</h2>
+  </div>
+
+  <div class="config-grid">
+    <div class="config-preview">
+      <svg id="configCar" viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg">
+        <path id="cfgBody" d="M40,260 C40,235 60,215 90,210 L150,205 C170,170 210,120 280,95 C330,78 390,70 450,72 C520,75 580,90 630,115 C660,130 680,150 700,170 L760,180 C800,185 830,205 840,235 L845,255 L790,258 C788,225 762,200 730,200 C696,200 668,228 668,262 L668,265 L280,265 L280,262 C280,228 252,200 218,200 C184,200 156,228 156,262 L156,265 L40,262 Z" fill="#0a0a0a" stroke="rgba(242,242,242,0.1)" stroke-width="1"/>
+        <path d="M300,150 C330,110 390,88 450,90 C510,92 560,105 600,130 L580,165 C520,145 440,140 380,148 C350,152 320,158 300,165 Z" fill="#050505" opacity="0.9"/>
+        <circle id="wheelL" cx="218" cy="262" r="52" fill="#050505" stroke="rgba(242,242,242,0.15)" stroke-width="2"/>
+        <circle id="hubL" cx="218" cy="262" r="22" fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <circle id="wheelR" cx="668" cy="262" r="52" fill="#050505" stroke="rgba(242,242,242,0.15)" stroke-width="2"/>
+        <circle id="hubR" cx="668" cy="262" r="22" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <div class="config-panel">
+      <div>
+        <div class="config-row-label">Color <b id="colorLabel">Obsidian</b></div>
+        <div class="swatches" id="colorGroup">
+          <button class="swatch" data-color="#0a0a0a" data-name="Obsidian" aria-pressed="true"><span class="swatch-dot" style="background:#0a0a0a"></span><span>Obsidian</span></button>
+          <button class="swatch" data-color="#C4C4C4" data-name="Silver" aria-pressed="false"><span class="swatch-dot" style="background:#C4C4C4"></span><span>Silver</span></button>
+          <button class="swatch" data-color="#F2F2F2" data-name="White" aria-pressed="false"><span class="swatch-dot" style="background:#F2F2F2"></span><span>White</span></button>
+          <button class="swatch" data-color="#C7FF00" data-name="Neon" aria-pressed="false"><span class="swatch-dot" style="background:#C7FF00"></span><span>Neon</span></button>
+        </div>
+      </div>
+
+      <div>
+        <div class="config-row-label">Wheels <b id="wheelLabel">19"</b></div>
+        <div class="pill-group" id="wheelGroup">
+          <button class="pill" data-wheel="19" aria-pressed="true">19"</button>
+          <button class="pill" data-wheel="21" aria-pressed="false">21"</button>
+          <button class="pill" data-wheel="carbon" aria-pressed="false">Carbon</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="config-row-label">Interior <b id="interiorLabel">Black</b></div>
+        <div class="swatches" id="interiorGroup">
+          <button class="swatch" data-int="#111111" data-name="Black" aria-pressed="true"><span class="swatch-dot" style="background:#111111"></span><span>Black</span></button>
+          <button class="swatch" data-int="#F2F2F2" data-name="White" aria-pressed="false"><span class="swatch-dot" style="background:#F2F2F2"></span><span>White</span></button>
+          <button class="swatch" data-int="#7A1616" data-name="Red" aria-pressed="false"><span class="swatch-dot" style="background:#7A1616"></span><span>Red</span></button>
+        </div>
+      </div>
+
+      <div class="config-footer">
+        <div>
+          <div class="price-label">Estimated price</div>
+          <div class="price-value">$89,900</div>
+        </div>
+        <button class="cta">Build yours →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>AETHER — a fictional concept car, designed for demonstration.</footer>
+
+<script>
+  // Scroll-linked hero zoom
+  const heroCar = document.getElementById('heroCar');
+  const hero = document.querySelector('.hero');
+  function updateZoom(){
+    const rect = hero.getBoundingClientRect();
+    const progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
+    const scale = 1 + progress * 0.55;
+    const translateY = progress * 40;
+    heroCar.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+  }
+  window.addEventListener('scroll', updateZoom, {passive:true});
+  updateZoom();
+
+  // Configurator logic
+  const cfgBody = document.getElementById('cfgBody');
+  const wheelL = document.getElementById('wheelL');
+  const wheelR = document.getElementById('wheelR');
+  const hubL = document.getElementById('hubL');
+  const hubR = document.getElementById('hubR');
+  const colorLabel = document.getElementById('colorLabel');
+  const wheelLabel = document.getElementById('wheelLabel');
+  const interiorLabel = document.getElementById('interiorLabel');
+
+  function setPressed(group, target){
+    group.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b === target ? 'true' : 'false'));
+  }
+
+  document.getElementById('colorGroup').addEventListener('click', e => {
+    const btn = e.target.closest('.swatch');
+    if(!btn) return;
+    cfgBody.setAttribute('fill', btn.dataset.color);
+    colorLabel.textContent = btn.dataset.name;
+    setPressed(e.currentTarget, btn);
+    // ensure contrast for neon/white by darkening stroke
+    cfgBody.setAttribute('stroke', 'rgba(0,0,0,0.25)');
+  });
+
+  document.getElementById('wheelGroup').addEventListener('click', e => {
+    const btn = e.target.closest('.pill');
+    if(!btn) return;
+    setPressed(e.currentTarget, btn);
+    wheelLabel.textContent = btn.textContent;
+    const w = btn.dataset.wheel;
+    let hubColor = '#C7FF00', hubR_ = 22, rimStroke = 2;
+    if(w === '19'){ hubR_ = 24; rimStroke = 2; hubColor = '#C7FF00'; }
+    if(w === '21'){ hubR_ = 20; rimStroke = 3; hubColor = '#F2F2F2'; }
+    if(w === 'carbon'){ hubR_ = 18; rimStroke = 4; hubColor = '#8A8A8A'; }
+    [hubL, hubR].forEach(h => { h.setAttribute('r', hubR_); h.setAttribute('stroke', hubColor); h.setAttribute('stroke-width', rimStroke); });
+  });
+
+  document.getElementById('interiorGroup').addEventListener('click', e => {
+    const btn = e.target.closest('.swatch');
+    if(!btn) return;
+    setPressed(e.currentTarget, btn);
+    interiorLabel.textContent = btn.dataset.name;
+  });
+
+  document.querySelector('.cta').addEventListener('click', () => {
+    const color = colorLabel.textContent, wheel = wheelLabel.textContent, interior = interiorLabel.textContent;
+    alert(`Your AETHER X1 — ${color}, ${wheel} wheels, ${interior} interior — $89,900`);
+  });
+</script>
+
+</body>
+</html>
